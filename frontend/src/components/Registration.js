@@ -1,106 +1,91 @@
 import React, { useState } from "react";
+import '../../static/css/Registration.css'
 
 export default function Registration() {
- 
-    const [name, setName] = useState("");
-    const[email, setEmail] = useState("");
-    const[password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  
+  const handleSubmit = (e) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    e.preventDefault();
+    if (
+      nickname === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      setErrorMessage("Please enter all required fields.");
+    } else if (password !== confirmPassword) {
+      setErrorMessage("Confirm password must match.");
+    } 
+    else if(!regex.test(email)) {
+        setErrorMessage("Please enter a valid email address.")
+    }
+    else {
+      setSuccessMessage(
+        "Thank you " + nickname + ". You have been registered successfully."
+      );
+      setErrorMessage("");
+    }
+  };
 
-    const [submitted, setSubmitted] = useState(false);
-    const [error, setError] = useState(false);
-
-    const handleName = (e) => {
-        setName(e.target.value);
-        setSubmitted(false);
-    };
-    const handleEmail = (e) => {
-        setEmail(e.target.value);
-        setSubmitted(false);
-    };
-    const handlePassword = (e) => {
-        setPassword(e.target.value);
-        setSubmitted(false);
-    };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(name === "" || email === "" || password === ""){
-           setError(true);
-        } else {
-            setSubmitted(true);
-            setError(false);
-        }
-    };
-    const successMessage = () => {
-       return (
-           <div
-               className="success"
-               style={{
-                   display: submitted ? "" : "none", 
-               }}
-            >
-               <h1>User {name} successfully registered!!</h1>
-            </div>
-       );
-    };
-
-    const errorMessage = () => {
-        return (
-            <div
-                className="error"
-                style={{
-                    display: error ? "" : "none",
-                }}
-                >
-                    Please enter all input
-                </div>
-        );
-    };
-
-    return(
-        <div className="App">
-        <div className="form">
-            
-            <div>
-                <h1>Sign Up</h1>
-            </div>
-            
-            {/* Calling method */}
-            <div className= "messages">
-                 {errorMessage()}
-                 {successMessage()}
-            </div>
-            <form>
-                {/*hi*/}
-                
-                <input
-                    placeholder="Name"
-                    onChange={handleName}
-                    className="input"
-                    value={name}
-                    type="text"
-                    />
-                    <input
-                        placeholder="Email Address"
-                        onChange={handleEmail}
-                        className="input"
-                        value={email}
-                        type="email"
-                    />
-                    <input
-                        placeholder="Password"
-                        onChange={handlePassword}
-                        className="input"
-                        value={password}
-                        type="password">
-                    </input>
-                    <br/>
-                    <br/>
-                    <button onClick={handleSubmit} className="btn" type="submit">
-                        Signup
-                    </button>  
-                    <h2>Learning Language App</h2>            
-            </form>
-        </div>  
-        </div>      
-    );
+  return (
+    <div className="App">
+      <div className="register-page">
+        <form className="register-form" onSubmit={handleSubmit}>
+          <h2>Registration</h2>
+          {errorMessage !== "" && (
+            <div style={{ color: "red" }}>{errorMessage}</div>
+          )}
+          {successMessage !== "" && (
+            <div style={{ color: "green" }}>{successMessage}</div>
+          )}
+          <br />
+          <div className="form-group">
+            <label htmlFor="nickname">Nickname:</label>
+            <input
+              type="text"
+              id="nickname"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confrimPassword">Password Confirmation:</label>
+            <input
+              type="password"
+              id="confrimPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          <button style={{marginTop: '5px'}} onClick={handleSubmit} className="btn" type="submit">
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }

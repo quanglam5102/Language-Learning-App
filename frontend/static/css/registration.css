@@ -1,79 +1,72 @@
+
 .App {
-    align-items: center;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.register-page {
     display: flex;
-    flex-direction: column;
-    background: #abc8af;
-    margin: auto;
-    margin-top: 200px;
-    
-    width: 434px;
-    border-radius: 22px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    text-align: center;
-    margin-left:500px;
+    justify-content: center;
+    align-items: start;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .register-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin-top: 100px;
     padding-bottom: 30px;
   }
-
-.label {
-    display: block;
-    font-size: larger;
-    color:rgb(0, 0, 0);
-    padding: white;
-    padding: 5px;
-  }
   
-  .btn {
-      color:white;
-      background-color: rgb(255, 0, 13);
-      font-size: larger;
-      display:block;
-      margin-left: auto;
-      margin-right: 100px;
-      margin-top: 10px;  
-      border-radius: 22px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-  .messages{
-      display: flex;
-      justify-content: center;
-  }
-  
-  .error{
-    display: block;
-    background-color: red;
-    color:white;
-    width: fit-content;
-    height: 9px;
-    padding: 4px;
-  }
-  .success{
-    display: block;
-    background-color: rgb(0, 255, 55);
-    color:#0800ff;
-    width: fit-content;
-    font-size: 65%;
-    height: 50px;
-    padding: 1px;
-    justify-content: center;
-  }
-  .input{
-    display: inline-block;
-    margin: auto;
-    padding: 6px 0;
-    width: 302px;
+  .register-form h2 {
     margin-bottom: 20px;
+    text-align: center;
   }
   
-  .placeholder{
-   font-size: 100px;
+  .form-group {
+    margin-bottom: 15px;
   }
-  body, .btn, input, label,.messages, select, td, textarea {
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    display:inline;
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
   }
-  .form{
-    justify-content: center
-    
+  
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .error {
+    color: red;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .messages{
+    display: flex;
+    justify-content: center;
+}
   
