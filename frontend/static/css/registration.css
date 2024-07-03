@@ -1,0 +1,79 @@
+.App {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background: #abc8af;
+    margin: auto;
+    margin-top: 200px;
+    
+    width: 434px;
+    border-radius: 22px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    margin-left:500px;
+    padding-bottom: 30px;
+  }
+
+.label {
+    display: block;
+    font-size: larger;
+    color:rgb(0, 0, 0);
+    padding: white;
+    padding: 5px;
+  }
+  
+  .btn {
+      color:white;
+      background-color: rgb(255, 0, 13);
+      font-size: larger;
+      display:block;
+      margin-left: auto;
+      margin-right: 100px;
+      margin-top: 10px;  
+      border-radius: 22px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .messages{
+      display: flex;
+      justify-content: center;
+  }
+  
+  .error{
+    display: block;
+    background-color: red;
+    color:white;
+    width: fit-content;
+    height: 9px;
+    padding: 4px;
+  }
+  .success{
+    display: block;
+    background-color: rgb(0, 255, 55);
+    color:#0800ff;
+    width: fit-content;
+    font-size: 65%;
+    height: 50px;
+    padding: 1px;
+    justify-content: center;
+  }
+  .input{
+    display: inline-block;
+    margin: auto;
+    padding: 6px 0;
+    width: 302px;
+    margin-bottom: 20px;
+  }
+  
+  .placeholder{
+   font-size: 100px;
+  }
+  body, .btn, input, label,.messages, select, td, textarea {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    display:inline;
+  }
+  .form{
+    justify-content: center
+    
+  }
+  
