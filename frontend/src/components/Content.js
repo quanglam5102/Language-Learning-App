@@ -1,33 +1,42 @@
-.App {
-  text-align: center;
-}
+import React, { useState } from 'react';
+import './content.css';
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
+const Content = () => {
+    const [showContents, setShowContents] = useState({
+        content1: false,
+        content2: false,
+        content3: false,
+        content4: false,
+        content5: false,
+    });
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+    const handleToggleContent = (content) => {
+        setShowContents((prevShowContents) => ({
+          ...prevShowContents,
+            [content]:!prevShowContents[content],
+        }));
+    };
 
-.App-link {
-  color: #61dafb;
-}
+    return (
+        <div className="container">
+            <h1>Language</h1>
+            {Object.keys(showContents).map((content, index) => (
+                <div key={index} className="button-content-group">
+                    <div className="centered">
+                        <button onClick={() => handleToggleContent(content)} className="button">
+                            {showContents[content]? `Close ${content}` : `Access ${content}`}
+                        </button>
+                        {showContents[content] && (
+                            <div className="content">
+                                {/* Add your content here */}
+                                <p>This is the {content} that was hidden.</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+export default Content;
