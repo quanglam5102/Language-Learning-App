@@ -28,7 +28,7 @@ const Content = () => {
                         </button>
                         {showContents[content] && (
                             <div className="content">
-                                {/* Add your content here */}
+                                {/* Add your information here */}
                                 <p>This is the {content} that was hidden.</p>
                             </div>
                         )}
