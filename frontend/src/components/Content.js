@@ -1,11 +1,39 @@
-import { dividerClasses } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
+import './content.css';
 
 const Content = () => {
+    const [showContents, setShowContents] = useState({
+        content1: false,
+        content2: false,
+        content3: false,
+        content4: false,
+        content5: false,
+    });
+
+    const handleToggleContent = (content) => {
+        setShowContents((prevShowContents) => ({
+          ...prevShowContents,
+            [content]:!prevShowContents[content],
+        }));
+    };
 
     return (
-        <div>
-            <h1>This is the content page.</h1>
+        <div className="container">
+            <h1>Language</h1>
+            {Object.keys(showContents).map((content, index) => (
+                <div key={index} className="button-content-group">
+                    <div className="centered">
+                        <button onClick={() => handleToggleContent(content)} className="button">
+                            {showContents[content]? `Close ${content}` : `Access ${content}`}
+                        </button>
+                        {showContents[content] && (
+                            <div className="content">
+                                <p>This is the {content} that was hidden.</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            ))}
         </div>
     );
 };

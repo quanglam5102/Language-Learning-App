@@ -1,0 +1,38 @@
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    text-align: center;
+  }
+  
+  .button-content-group {
+    margin-bottom: 40px;
+  }
+  
+  .centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+    width: 30%;
+  }
+  
+  .button:hover {
+    background-color: #3e8e41;
+  }
+  
+  .content {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 30%;
+    margin-top: 20px;
+  }
