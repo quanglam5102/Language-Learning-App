@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './content.css';
 
+
 const Content = () => {
     const [showContents, setShowContents] = useState({
         content1: false,
