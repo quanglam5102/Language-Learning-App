@@ -14,7 +14,6 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from "react-router-dom";
 
-// const pages = ['Home', 'Courses', "About", 'Login', 'Register'];
 const pages = [
     { label: 'Home', path: '/' },
     { label: 'Content', path: '/content' },
@@ -22,7 +21,8 @@ const pages = [
     { label: 'Login', path: '/login' },
     { label: 'Register', path: '/register' }
   ];
-const settings = ['Profile', 'Logout'];
+const settings = [{ label: 'Profile', path: '/profile' },
+                  { label: 'Logout', path: '/logout' }];
 
 function Navbar() {
     const navigate = useNavigate();
@@ -38,13 +38,18 @@ function Navbar() {
 
   const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
-    let path = e == 'Home' ? '/' : '/' + e.toLowerCase();
-    console.log('hello world', path)
-    navigate(path);
+    if(e !== null) {
+      let path = e == 'Home' ? '/' : '/' + e.toLowerCase();
+      navigate(path);
+    }
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (e) => {
     setAnchorElUser(null);
+    if(e == '/profile' || e == '/logout') {
+      // let path = '/' + e.toLowerCase();
+      navigate(e);
+    }
   };
 
   return (
@@ -161,8 +166,8 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.label} onClick={() => handleCloseUserMenu(setting.path)}>
+                  <Typography textAlign="center">{setting.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>

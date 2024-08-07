@@ -1,13 +1,19 @@
-import React, { Component }  from 'react';
+import React from 'react';
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props);
-    }
+import '../../static/css/home.css';
 
-    render() {
-        return (
-            <h1>This is the home page.</h1>
-        );
-    }
+const Home = () => {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Welcome to Language Learner!</h1>
+        <p>Start your journey to becoming fluent in multiple languages today.</p>
+        <button className="App-button" onClick={() => alert('Get Started Clicked!')}>
+          Get Started
+        </button>
+      </header>
+    </div>
+  );    
 }
+
+export default Home;  
