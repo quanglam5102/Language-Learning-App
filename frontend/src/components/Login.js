@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import '../../static/css/LoginPage.css';
+import '../../static/css/login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -26,7 +26,6 @@ const Login = () => {
   };
 
   return (
-    <div className="App">
     <div className="login-page">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
@@ -49,9 +48,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button style={{marginTop: '5px'}} type="submit">Login</button>
+        <button type="submit">Login</button>
       </form>
-    </div>
     </div>
   );
 };
