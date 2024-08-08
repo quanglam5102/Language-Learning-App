@@ -33,7 +33,7 @@ const Registration = () => {
         if (!formData.phoneNumber) {
             errors.phoneNumber = 'Phone number is required';
         } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
-            errors.phoneNumber = 'Phone number is invalid';
+            errors.phoneNumber = 'The Phone number is invalid';
         }
         return errors;
     };
