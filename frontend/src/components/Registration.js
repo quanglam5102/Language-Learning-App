@@ -43,8 +43,20 @@ const Registration = () => {
         const validationErrors = validate();
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length === 0) {
-            console.log('Form data submitted:', formData);
-            // Submit form data to the server or perform further actions
+            const { confirmPassword, ...dataToSubmit } = formData;
+            const requestOptions = {
+                method: 'POST',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({
+                    username: dataToSubmit.username,
+                    email: dataToSubmit.email,
+                    password: dataToSubmit.password,
+                    phone: dataToSubmit.phoneNumber,
+                }),
+            };
+            fetch('/api/create-user', requestOptions)
+                .then((response) => response.json())
+                .then((data) => console.log('Result:', data))
         }
     };
 
