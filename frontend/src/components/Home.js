@@ -9,7 +9,7 @@ const Home = () => {
     <div className="App">
       <header className="App-header">
         <h1>Welcome to Lingual Master!</h1>
-        <p>Start your journey to becoming fluent in multiple languages today.</p>
+        <p>Start your journey and become fluent in multiple languages today.</p>
         <button className="App-button" onClick={() => navigate('/content')}>
           Get Started
         </button>
