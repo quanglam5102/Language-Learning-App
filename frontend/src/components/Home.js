@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Welcome to Language Learner!</h1>
+        <h1>Welcome to Lingual Master!</h1>
         <p>Start your journey to becoming fluent in multiple languages today.</p>
         <button className="App-button" onClick={() => navigate('/content')}>
           Get Started
