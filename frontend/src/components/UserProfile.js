@@ -1,65 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Avatar } from '@mui/material';
 
 const UserProfile = () => {
-    const [profile, setProfile] = useState({
-        name: '',
-        phone_number: '',
-        address: ''
-        // Add other fields as needed
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setProfile({ ...profile, [name]: value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Update the user profile
-        axios.put('/api/profile/', profile)
-            .then(response => {
-                alert('Profile updated successfully!');
-            })
-            .catch(error => {
-                console.error("There was an error updating the profile!", error);
-            });
-    };
-
     return (
-        <Container maxWidth="sm">
-            <Box sx={{ mt: 4, mb: 2 }}>
-                <Typography variant="h4" component="h1" gutterBottom>
-                    My Profile
-                </Typography>
-            </Box>
-            <Box component="form" onSubmit={handleSubmit} sx={{ '& .MuiTextField-root': { mb: 2, width: '100%' } }}>
-                <TextField
-                    label="Name"
-                    variant="outlined"
-                    name="name"
-                    value={profile.name}
-                    onChange={handleChange}
-                />
-                <TextField
-                    label="Phone Number"
-                    variant="outlined"
-                    name="phone_number"
-                    value={profile.phone_number}
-                    onChange={handleChange}
-                />
-                <TextField
-                    label="Address"
-                    variant="outlined"
-                    name="address"
-                    value={profile.address}
-                    onChange={handleChange}
-                />
-                <Button type="submit" variant="contained" color="primary" fullWidth>
-                    Update Profile
-                </Button>
-            </Box>
-        </Container>
+        <Container maxWidth="sm" style={{ backgroundColor: '#2F2F2F', color: '#FFFFFF', borderRadius: '8px', padding: '50px', marginTop: '50px', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)' }}>
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <Avatar src="/avatar.png" alt="Profile Picture" style={{ width: '100px', height: '100px', marginBottom: '20px', cursor: 'pointer', border: '2px solid #FFFFFF' }} />
+          <Typography variant="h6" style={{ marginBottom: '20px', fontWeight: '300' }}>Change your Avatar</Typography>
+          <TextField
+            variant="outlined"
+            fullWidth
+            label="Name"
+            style={{ marginBottom: '15px', backgroundColor: '#333333' }}
+            InputLabelProps={{ style: { color: '#AAAAAA' } }}
+            InputProps={{ style: { color: '#FFFFFF' } }}
+          />
+          <TextField
+            variant="outlined"
+            fullWidth
+            label="Username"
+            style={{ marginBottom: '15px', backgroundColor: '#333333' }}
+            InputLabelProps={{ style: { color: '#AAAAAA' } }}
+            InputProps={{ style: { color: '#FFFFFF' } }}
+          />
+          <TextField
+            variant="outlined"
+            fullWidth
+            label="Password"
+            style={{ marginBottom: '15px', backgroundColor: '#333333' }}
+            InputLabelProps={{ style: { color: '#AAAAAA' } }}
+            InputProps={{ style: { color: '#FFFFFF' } }}
+          />
+          <TextField
+            variant="outlined"
+            fullWidth
+            label="Email"
+            style={{ marginBottom: '30px', backgroundColor: '#333333' }}
+            InputLabelProps={{ style: { color: '#AAAAAA' } }}
+            InputProps={{ style: { color: '#FFFFFF' } }}
+          />
+          <Button variant="contained" color="primary" style={{ backgroundColor: '#0077B6', width: '100%', padding: '10px' }}> Update Profile</Button>
+        </Box>
+      </Container>
     );
 };
 
