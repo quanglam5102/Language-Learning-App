@@ -12,4 +12,13 @@ class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'password', 'phone')
+
+class LoginUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email', 'password')
+        extra_kwargs = {
+            'password': {'write_only': False},
+            'email': {'validators': []},  # Disable the unique validator
+        }
         
