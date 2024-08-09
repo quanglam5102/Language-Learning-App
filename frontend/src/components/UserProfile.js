@@ -9,17 +9,6 @@ const UserProfile = () => {
         // Add other fields as needed
     });
 
-    // useEffect(() => {
-    //     // Fetch the user profile data when the component mounts
-    //     fetch('/api/profile/')
-    //         .then(response => {
-    //             setProfile(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.error("There was an error fetching the profile!", error);
-    //         });
-    // }, []);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProfile({ ...profile, [name]: value });
@@ -41,7 +30,7 @@ const UserProfile = () => {
         <Container maxWidth="sm">
             <Box sx={{ mt: 4, mb: 2 }}>
                 <Typography variant="h4" component="h1" gutterBottom>
-                    User Profile
+                    My Profile
                 </Typography>
             </Box>
             <Box component="form" onSubmit={handleSubmit} sx={{ '& .MuiTextField-root': { mb: 2, width: '100%' } }}>
