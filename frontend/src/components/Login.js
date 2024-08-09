@@ -1,8 +1,10 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import '../../static/css/login.css';
 
 const Login = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -21,8 +23,25 @@ const Login = () => {
     }
 
     setError('');
+    const requestOptions = {
+      method: 'POST',
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify({
+          email: email,
+          password: password,
+      }),
+  };
+    fetch('/api/login', requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        if(data != "Invalid credentials") {
+          navigate('/content')
+        }
+        else {
+          setError('Email or password is not valid. Try again.');
+        }
+    })
 
-    console.log('Logging in with:', { email, password });
   };
 
   return (
