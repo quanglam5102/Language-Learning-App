@@ -5,7 +5,7 @@ const UserProfile = () => {
     return (
         <Container maxWidth="sm" style={{ backgroundColor: '#2F2F2F', color: '#FFFFFF', borderRadius: '8px', padding: '50px', marginTop: '50px', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)' }}>
         <Box display="flex" flexDirection="column" alignItems="center">
-          <Avatar src="/avatar.png" alt="Profile Picture" style={{ width: '100px', height: '100px', marginBottom: '20px', cursor: 'pointer', border: '2px solid #FFFFFF' }} />
+          <Avatar src="../../static/images/avatar.jpeg" alt="Profile Picture" style={{ width: '100px', height: '100px', marginBottom: '20px', cursor: 'pointer', border: '2px solid #FFFFFF' }} />
           <Typography variant="h6" style={{ marginBottom: '20px', fontWeight: '300' }}>Change your Avatar</Typography>
           <TextField
             variant="outlined"

@@ -32,7 +32,7 @@ const About = () => {
         </Grid>
         <Grid item xs={12} align="center">
             <FormControl>
-                <TextField required={true} type='number' defaultValue='hello world' inputProps={{min:1, style: {textAlign: 'center'}}}/>
+                <TextField required={true} type='number' defaultValue='0' inputProps={{min:1, style: {textAlign: 'center'}}}/>
                 <FormHelperText style={{ textAlign: 'center' }}><span align="center">This field is required</span></FormHelperText>
             </FormControl>
         </Grid>
