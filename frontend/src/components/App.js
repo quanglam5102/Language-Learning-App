@@ -7,6 +7,7 @@ import Login from "./Login";
 import Registration from "./Registration";
 import Navbar from "./Navbar";
 import Content from "./Content";
+import Quiz from "./Quiz";
 import About from "./About";
 import UserProfile from "./UserProfile"
 import {
@@ -32,6 +33,7 @@ export default class App extends Component {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Registration />} />
             <Route path="/content" element={<Content />} />
+            <Route path="/quiz" element={<Quiz/>}/>
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/logout" element={<About />} />
