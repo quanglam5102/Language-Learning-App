@@ -7,5 +7,6 @@ urlpatterns = [
     path('register', index),
     path('profile', index),
     path('content', index),
+    path('discussion', index),
     path('about', index),
 ]

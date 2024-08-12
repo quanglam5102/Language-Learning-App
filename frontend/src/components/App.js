@@ -9,6 +9,7 @@ import Navbar from "./Navbar";
 import Content from "./Content";
 import About from "./About";
 import UserProfile from "./UserProfile"
+import Discussion from "./Discussion";
 import {
   BrowserRouter as Router,
   Routes,
@@ -35,6 +36,7 @@ export default class App extends Component {
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/logout" element={<About />} />
+            <Route path="/Discussion" element={<Discussion />} />
           </Routes>
         </Router>
       </div>

@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 const pages = [
     { label: 'Home', path: '/' },
     { label: 'Content', path: '/content' },
+    { label: 'Discussion', path: '/discussion' }, // New discussion page link
     { label: 'About', path: '/about' },
     { label: 'Login', path: '/login' },
     { label: 'Register', path: '/register' }
