@@ -9,4 +9,6 @@ urlpatterns = [
     path('content', index),
     path('discussion', index),
     path('about', index),
+    path('quiz', index),
+    path('goals', index),
 ]

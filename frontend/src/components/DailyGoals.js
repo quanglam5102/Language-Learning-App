@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import './DailyGoals.css';
+// import '../../static/css/DailyGoals.css';
 
 const DailyGoals = () => {
     const [goals, setGoals] = useState([]);
