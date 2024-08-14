@@ -50,3 +50,4 @@ const DailyGoals = () => {
 };
 
 export default DailyGoals;
+
