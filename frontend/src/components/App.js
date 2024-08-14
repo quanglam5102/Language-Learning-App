@@ -11,6 +11,7 @@ import Quiz from "./Quiz";
 import About from "./About";
 import UserProfile from "./UserProfile"
 import Discussion from "./Discussion";
+import DailyGoals from "./DailyGoals";
 import {
   BrowserRouter as Router,
   Routes,
@@ -38,7 +39,8 @@ export default class App extends Component {
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/logout" element={<About />} />
-            <Route path="/Discussion" element={<Discussion />} />
+            <Route path="/discussion" element={<Discussion />} />
+            <Route path="/goals" element={<DailyGoals />} />
           </Routes>
         </Router>
       </div>
