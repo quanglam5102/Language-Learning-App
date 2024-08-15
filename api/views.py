@@ -3,7 +3,7 @@ from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import User
-from .serializers import UserSerializer, CreateUserSerializer, LoginUserSerializer, GetUserSerializer
+from .serializers import UserSerializer, CreateUserSerializer, LoginUserSerializer, GetUserSerializer, UpdateProgressSerializer
 
 class UserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -12,9 +12,6 @@ class UserView(generics.CreateAPIView):
 class GetUser(APIView):
     serializer_class = GetUserSerializer
     def post(self, request, format=None):
-        if not self.request.session.exists(self.request.session.session_key):
-            self.request.session.create()
-            
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             email = serializer.data.get('email')
@@ -79,4 +76,24 @@ class Login(APIView):
                 )
             else:
                 return Response({'Bad Request': 'User does not exist...'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'Bad Request': 'Invalid Serializer...'}, status=status.HTTP_400_BAD_REQUEST)
+    
+class UpdateProgressView(APIView):
+    serializer_class = UpdateProgressSerializer
+
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            email = serializer.data.get('email')
+            progress = serializer.data.get('progress')
+            
+            queryset = User.objects.filter(email=email)
+            if queryset.exists():
+                user = queryset[0]
+                user.progress = progress
+                user.save(update_fields=['progress'])
+                return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
+            else:
+                return Response({'Bad Request': 'Could not find user...'}, status=status.HTTP_400_BAD_REQUEST)
+        
         return Response({'Bad Request': 'Invalid Serializer...'}, status=status.HTTP_400_BAD_REQUEST)

@@ -30,4 +30,13 @@ class LoginUserSerializer(serializers.ModelSerializer):
             'password': {'write_only': False},
             'email': {'validators': []},  # Disable the unique validator
         }
+
+class UpdateProgressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email', 'progress')
+        extra_kwargs = {
+            'password': {'write_only': False},
+            'email': {'validators': []},  # Disable the unique validator
+        }
         
