@@ -8,6 +8,15 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'password', 'phone', 'progress', 'createdAt')
 
+class GetUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email',)
+        extra_kwargs = {
+            'password': {'write_only': False},
+            'email': {'validators': []},  # Disable the unique validator
+        }
+
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
