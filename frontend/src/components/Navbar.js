@@ -15,26 +15,37 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from './AuthProvider';
 
-const pages = [
-  { label: "Home", path: "home" },
-  { label: "Content", path: "content" },
-  { label: "Discussion", path: "discussion" },
-  { label: " Daily Goals", path: "goals" },
-  { label: "Quizzes", path: "quiz" },
-  { label: "About", path: "about" },
-  { label: "Register", path: "register" },
-  { label: "Login", path: "login" },
-];
-const settings = [
-  { label: "Profile", path: "/profile" },
-  { label: "Logout", path: "/logout" },
-];
-
 function Navbar() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, isAuthenticated } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const pages = isAuthenticated
+? [
+    { label: "Home", path: "home" },
+    { label: "Content", path: "content" },
+    { label: "Discussion", path: "discussion" },
+    { label: "Daily Goals", path: "goals" },
+    { label: "Quizzes", path: "quiz" },
+    { label: "About", path: "about" },
+    { label: "Logout", path: "logout" }
+  ]
+: [
+    { label: "Home", path: "home" },
+    { label: "Content", path: "content" },
+    { label: "Discussion", path: "discussion" },
+    { label: "Daily Goals", path: "goals" },
+    { label: "Quizzes", path: "quiz" },
+    { label: "About", path: "about" },
+    { label: "Register", path: "register" },
+    { label: "Login", path: "login" }
+  ];
+
+  const settings = [
+    { label: "Profile", path: "/profile" },
+    { label: "Logout", path: "/logout" },
+  ];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -45,7 +56,11 @@ function Navbar() {
 
   const handleCloseNavMenu = (e) => {
     setAnchorElNav(null);
-    if (e !== null) {
+    if (e == "logout") {
+      logout();
+      navigate('/login');
+    }
+    else {
       let path = e == "home" ? "/" : "/" + e.toLowerCase();
       navigate(path);
     }

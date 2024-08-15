@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import '../../static/css/registration.css';
+import { useAuth } from "./AuthProvider";
 
 const Registration = () => {
+    const navigate = useNavigate();
+    const { logout } = useAuth();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -56,7 +60,8 @@ const Registration = () => {
             };
             fetch('/api/create-user', requestOptions)
                 .then((response) => response.json())
-                .then((data) => console.log('Result:', data))
+                .then((data) => {logout(); navigate('/login');})
+                .catch((error) => console.log('Error registering new user', error))
         }
     };
 

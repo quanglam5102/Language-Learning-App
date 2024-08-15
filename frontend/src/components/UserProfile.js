@@ -1,8 +1,47 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box, Avatar, IconButton } from '@mui/material';
+import { useAuth } from "./AuthProvider";
 import { PhotoCamera } from '@mui/icons-material';
 
 const UserProfile = () => {
+    const { isAuthenticated } = useAuth();
+    const [username, setUsername] = useState('Default Username');
+    const [password, setPassword] = useState('******');
+    const [phone, setPhone] = useState('xxx xxx-xxxx');
+    const [email, setEmail] = useState('default@example.com');
+    const [progress, setProgress] = useState('Default Name');
+    const [createdAt, setCreatedAt] = useState('Default Name');
+    const [error, setError] = useState('');
+    useEffect(() => {
+      if (!isAuthenticated) {
+        
+      }
+      else {
+        const requestOptions = {
+          method: 'POST',
+          headers: {'Content-type': 'application/json'},
+          body: JSON.stringify({
+              email: localStorage.getItem('email'),
+          }),
+      };
+        fetch('/api/get-user', requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            if(data.username != null) {
+              setPhone(data.phone);
+              setUsername(data.username);
+              setPassword(data.password); 
+              setEmail(data.email);
+              setProgress(data.progress);
+              setCreatedAt(new Date(data.createdAt).toLocaleDateString());
+            }
+            else {
+              setError('Error retrieving user data.');
+            }
+          })
+          .catch((error) => console.log('Something went wrong. Please try again', error));
+      }
+    }, []);
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -69,7 +108,18 @@ const UserProfile = () => {
         <TextField
           variant="outlined"
           fullWidth
-          label="Name"
+          label="Username"
+            value={username}
+            style={{ marginBottom: '15px', backgroundColor: '#333333' }}
+            InputLabelProps={{ style: { color: '#AAAAAA' } }}
+            InputProps={{ style: { color: '#FFFFFF' } }}
+          />
+          <TextField
+            variant="outlined"
+            fullWidth
+            label="Password"
+            value={password}
+            type="password"
           value={name}
           onChange={(e) => setName(e.target.value)}
           error={!!errors.name}
@@ -81,7 +131,17 @@ const UserProfile = () => {
         <TextField
           variant="outlined"
           fullWidth
-          label="Username"
+          label="Email"
+            value={email}
+            style={{ marginBottom: '30px', backgroundColor: '#333333' }}
+            InputLabelProps={{ style: { color: '#AAAAAA' } }}
+            InputProps={{ style: { color: '#FFFFFF' } }}
+          />
+          <TextField
+            variant="outlined"
+            fullWidth
+            label="Phone Number"
+            value={phone}
           // value={username}
           onChange={(e) => setUsername(e.target.value)}
           error={!!errors.username}
@@ -93,7 +153,8 @@ const UserProfile = () => {
         <TextField
           variant="outlined"
           fullWidth
-          label="Password"
+          label="Progess"
+            value={progress}
           // type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -106,12 +167,13 @@ const UserProfile = () => {
         <TextField
           variant="outlined"
           fullWidth
-          label="Email"
+          label="Created At"
+            value={createdAt}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           error={!!errors.email}
           helperText={errors.email}
-          style={{ marginBottom: '30px', backgroundColor: '#333333' }}
+          style={{ marginBottom: '15px', backgroundColor: '#333333' }}
           InputLabelProps={{ style: { color: '#AAAAAA' } }}
           InputProps={{ style: { color: '#FFFFFF' } }}
         />

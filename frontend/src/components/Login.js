@@ -44,8 +44,9 @@ const Login = () => {
     fetch('/api/login', requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        if(data != "Invalid credentials") {
+        if(data.username != null) {
           login();
+          localStorage.setItem('email', data.email)
         }
         else {
           setError('Email or password is not valid. Try again.');
