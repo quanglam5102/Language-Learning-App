@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Box,
   Button,
@@ -12,7 +12,10 @@ import {
 } from "@mui/material";
 
 const DailyGoals = () => {
-  const [goals, setGoals] = useState([]);
+  const [goals, setGoals] = useState(() => {
+    const savedGoals = localStorage.getItem('goals');
+    return savedGoals ? JSON.parse(savedGoals) : [];
+  });
   const [inputValue, setInputValue] = useState("");
 
   const addGoal = () => {
@@ -37,6 +40,33 @@ const DailyGoals = () => {
   const clearGoals = () => {
     setGoals([]);
   };
+
+  useEffect(() => {
+    localStorage.setItem('goals', JSON.stringify(goals));
+  }, [goals]);
+
+  useEffect(() => {
+    const updateProgress = async () => {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: localStorage.getItem('email'),
+          progress: Math.round(progress),
+      }),
+      };
+  
+      try {
+        const response = await fetch('/api/update-progress', requestOptions);
+        const data = await response.json();
+        console.log('Progress updated:', data);
+      } catch (error) {
+        console.error('Error updating progress:', error);
+      }
+    };
+  
+    updateProgress();
+  }, [progress]);
 
   return (
     <Container maxWidth="sm" sx={{ marginTop: 4 }}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Container, Typography, Box, Avatar, IconButton } from '@mui/material';
 import { useAuth } from "./AuthProvider";
 import { PhotoCamera } from '@mui/icons-material';
@@ -11,7 +11,7 @@ const UserProfile = () => {
     const [email, setEmail] = useState('default@example.com');
     const [progress, setProgress] = useState('Default Name');
     const [createdAt, setCreatedAt] = useState('Default Name');
-    const [error, setError] = useState('');
+    const [errors, setErrors] = useState({});
     useEffect(() => {
       if (!isAuthenticated) {
         
@@ -42,11 +42,7 @@ const UserProfile = () => {
           .catch((error) => console.log('Something went wrong. Please try again', error));
       }
     }, []);
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [errors, setErrors] = useState({});
+  
   const [avatar, setAvatar] = useState('../../static/images/avatar.jpeg');
 
   const validateForm = () => {
@@ -120,13 +116,12 @@ const UserProfile = () => {
             label="Password"
             value={password}
             type="password"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          error={!!errors.name}
-          helperText={errors.name}
-          style={{ marginBottom: '15px', backgroundColor: '#333333' }}
-          InputLabelProps={{ style: { color: '#AAAAAA' } }}
-          InputProps={{ style: { color: '#FFFFFF' } }}
+            onChange={(e) => setPassword(e.target.value)}
+            error={!!errors.name}
+            helperText={errors.password}
+            style={{ marginBottom: '15px', backgroundColor: '#333333' }}
+            InputLabelProps={{ style: { color: '#AAAAAA' } }}
+            InputProps={{ style: { color: '#FFFFFF' } }}
         />
         <TextField
           variant="outlined"
@@ -142,10 +137,9 @@ const UserProfile = () => {
             fullWidth
             label="Phone Number"
             value={phone}
-          // value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          error={!!errors.username}
-          helperText={errors.username}
+          onChange={(e) => setPhone(e.target.value)}
+          error={!!errors.phone}
+          helperText={errors.phone}
           style={{ marginBottom: '15px', backgroundColor: '#333333' }}
           InputLabelProps={{ style: { color: '#AAAAAA' } }}
           InputProps={{ style: { color: '#FFFFFF' } }}
@@ -154,12 +148,10 @@ const UserProfile = () => {
           variant="outlined"
           fullWidth
           label="Progess"
-            value={progress}
-          // type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          error={!!errors.password}
-          helperText={errors.password}
+          value={progress}
+          onChange={(e) => setProgress(e.target.value)}
+          error={!!errors.progress}
+          helperText={errors.progress}
           style={{ marginBottom: '15px', backgroundColor: '#333333' }}
           InputLabelProps={{ style: { color: '#AAAAAA' } }}
           InputProps={{ style: { color: '#FFFFFF' } }}
@@ -168,14 +160,13 @@ const UserProfile = () => {
           variant="outlined"
           fullWidth
           label="Created At"
-            value={createdAt}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={createdAt}
+
           error={!!errors.email}
           helperText={errors.email}
           style={{ marginBottom: '15px', backgroundColor: '#333333' }}
           InputLabelProps={{ style: { color: '#AAAAAA' } }}
-          InputProps={{ style: { color: '#FFFFFF' } }}
+          InputProps={{ style: { color: '#FFFFFF' }, readOnly: true, }}
         />
         <Button variant="contained" color="primary" style={{ backgroundColor: '#0077B6', width: '100%', padding: '10px' }} onClick={handleUpdateProfile}>
           Update Profile
