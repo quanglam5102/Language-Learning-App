@@ -47,6 +47,7 @@ const Login = () => {
         if(data.username != null) {
           login();
           localStorage.setItem('email', data.email)
+          localStorage.setItem('username', data.username);
         }
         else {
           setError('Email or password is not valid. Try again.');
