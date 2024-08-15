@@ -6,8 +6,10 @@ import {
   Typography,
   Box,
   Avatar,
+  IconButton,
 } from "@mui/material";
 import { useAuth } from "./AuthProvider";
+import { PhotoCamera } from "@mui/icons-material";
 
 const UserProfile = () => {
   const { isAuthenticated } = useAuth();
@@ -17,7 +19,7 @@ const UserProfile = () => {
   const [email, setEmail] = useState("default@example.com");
   const [progress, setProgress] = useState("Default Name");
   const [createdAt, setCreatedAt] = useState("Default Name");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
   useEffect(() => {
     if (isAuthenticated) {
       const requestOptions = {
@@ -46,9 +48,52 @@ const UserProfile = () => {
         );
     }
   }, []);
+
+  const [avatar, setAvatar] = useState("../../static/images/avatar.jpeg");
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!name) newErrors.name = "Name cannot be empty";
+    if (!username) newErrors.username = "Username cannot be empty";
+    if (!password) newErrors.password = "Password cannot be empty";
+    if (!email) newErrors.email = "Email cannot be empty";
+    else if (!/\S+@\S+\.\S+/.test(email))
+      newErrors.email = "Email is not valid";
+
+    setErrors(newErrors);
+
+    // Return true if no errors
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleUpdateProfile = () => {
+    if (validateForm()) {
+      // Submit form or perform desired action
+      console.log("Profile updated successfully!");
+      // Reset the form if needed
+      setName("");
+      setUsername("");
+      setPassword("");
+      setEmail("");
+      setErrors({});
+    }
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Container
-      maxWidth="sm"
+      maxWidth="md"
       style={{
         backgroundColor: "#2F2F2F",
         color: "#FFFFFF",
@@ -59,23 +104,46 @@ const UserProfile = () => {
       }}
     >
       <Box display="flex" flexDirection="column" alignItems="center">
-        <Avatar
-          src="../../static/images/avatar.jpeg"
-          alt="Profile Picture"
-          style={{
-            width: "100px",
-            height: "100px",
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            position: "relative",
             marginBottom: "20px",
-            cursor: "pointer",
-            border: "2px solid #FFFFFF",
           }}
-        />
+        >
+          <Avatar
+            src={avatar}
+            alt="Profile Picture"
+            style={{
+              width: "100px",
+              height: "100px",
+              cursor: "pointer",
+              border: "2px solid #FFFFFF",
+            }}
+          />
+          <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="label"
+            sx={{ position: "absolute", bottom: 0, right: 0 }}
+          >
+            <input
+              hidden
+              accept="image/*"
+              type="file"
+              onChange={handleAvatarChange}
+            />
+            <PhotoCamera />
+          </IconButton>
+        </Box>
         <Typography
           variant="h6"
           style={{ marginBottom: "20px", fontWeight: "300" }}
         >
           Change your Avatar
         </Typography>
+
         <TextField
           variant="outlined"
           fullWidth
@@ -91,6 +159,9 @@ const UserProfile = () => {
           label="Password"
           value={password}
           type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          error={!!errors.name}
+          helperText={errors.password}
           style={{ marginBottom: "15px", backgroundColor: "#333333" }}
           InputLabelProps={{ style: { color: "#AAAAAA" } }}
           InputProps={{ style: { color: "#FFFFFF" } }}
@@ -109,6 +180,9 @@ const UserProfile = () => {
           fullWidth
           label="Phone Number"
           value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          error={!!errors.phone}
+          helperText={errors.phone}
           style={{ marginBottom: "15px", backgroundColor: "#333333" }}
           InputLabelProps={{ style: { color: "#AAAAAA" } }}
           InputProps={{ style: { color: "#FFFFFF" } }}
@@ -118,6 +192,9 @@ const UserProfile = () => {
           fullWidth
           label="Progess"
           value={progress}
+          onChange={(e) => setProgress(e.target.value)}
+          error={!!errors.progress}
+          helperText={errors.progress}
           style={{ marginBottom: "15px", backgroundColor: "#333333" }}
           InputLabelProps={{ style: { color: "#AAAAAA" } }}
           InputProps={{ style: { color: "#FFFFFF" } }}
@@ -127,16 +204,18 @@ const UserProfile = () => {
           fullWidth
           label="Created At"
           value={createdAt}
+          error={!!errors.email}
+          helperText={errors.email}
           style={{ marginBottom: "15px", backgroundColor: "#333333" }}
           InputLabelProps={{ style: { color: "#AAAAAA" } }}
-          InputProps={{ style: { color: "#FFFFFF" } }}
+          InputProps={{ style: { color: "#FFFFFF" }, readOnly: true }}
         />
         <Button
           variant="contained"
           color="primary"
           style={{ backgroundColor: "#0077B6", width: "100%", padding: "10px" }}
+          onClick={handleUpdateProfile}
         >
-          {" "}
           Update Profile
         </Button>
       </Box>
