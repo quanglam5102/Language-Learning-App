@@ -54,7 +54,7 @@ function Discussion() {
     if (newComment.trim() !== '') {
       setComments([
         ...comments,
-        { name: 'User', comment: newComment, avatar: '../../static/images/avatar.jpeg', likes: 0, dislikes: 0 },
+        { name: localStorage.getItem('username'), comment: newComment, avatar: '../../static/images/avatar.jpeg', likes: 0, dislikes: 0 },
       ]);
       setNewComment('');
     }
@@ -105,7 +105,7 @@ function Discussion() {
                 {/* <IconButton onClick={() => handleDislike(index)} sx={{ color: '#ffffff', marginLeft: 2 }}>
                   <ThumbDownAltIcon /> <Typography variant="body2" sx={{ marginLeft: 0.5 }}>{entry.dislikes}</Typography>
                 </IconButton> */}
-                {entry.name === 'User' && (
+                {entry.name === localStorage.getItem('username') && (
                   <IconButton onClick={() => handleDelete(index)} sx={{ color: '#ff5555', marginLeft: 2 }}>
                     <DeleteIcon />
                   </IconButton>
