@@ -6,7 +6,6 @@ export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        // Check if the user is logged in on initial load
         const token = localStorage.getItem('authToken');
         if (token) {
             setIsAuthenticated(true);
@@ -14,13 +13,13 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (token) => {
-        // Here you would typically verify the token with the backend
-        localStorage.setItem('authToken', token); // Store token in localStorage
+        localStorage.setItem('authToken', token);
         setIsAuthenticated(true);
     };
 
     const logout = () => {
-        localStorage.removeItem('authToken'); // Remove token from localStorage
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('email');
         setIsAuthenticated(false);
     };
 
