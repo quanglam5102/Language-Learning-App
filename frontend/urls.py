@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import index
 #in order to access through browser url
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path('about', index),
     path('quiz', index),
     path('goals', index),
+    re_path(r'^.*$', index),
 ]

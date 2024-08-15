@@ -1,13 +1,23 @@
 
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
 import '../../static/css/login.css';
+import { useAuth } from './AuthProvider';
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login, isAuthenticated } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const from = location.state?.from?.pathname || '/content';// Default to '/content' if no from state
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, from]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,13 +45,13 @@ const Login = () => {
       .then((response) => response.json())
       .then((data) => {
         if(data != "Invalid credentials") {
-          navigate('/content')
+          login();
         }
         else {
           setError('Email or password is not valid. Try again.');
         }
-    })
-
+      })
+      .catch(() => setError('Something went wrong. Please try again.'));
   };
 
   return (

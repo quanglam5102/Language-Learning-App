@@ -1,5 +1,5 @@
-// src/Register.js
 import React, { useState } from 'react';
+import '../../static/css/registration.css';
 
 const Registration = () => {
     const [formData, setFormData] = useState({
@@ -61,10 +61,10 @@ const Registration = () => {
     };
 
     return (
-        <div style={styles.container}>
+        <div className="register-page">
+            <form onSubmit={handleSubmit} className="register-form">
             <h2>Register</h2>
-            <form onSubmit={handleSubmit} style={styles.form}>
-                <div style={styles.formGroup}>
+                <div className="form-group">
                     <label>Username</label>
                     <input
                         type="text"
@@ -75,7 +75,7 @@ const Registration = () => {
                     />
                     {errors.username && <p style={styles.error}>{errors.username}</p>}
                 </div>
-                <div style={styles.formGroup}>
+                <div className="form-group">
                     <label>Email</label>
                     <input
                         type="email"
@@ -86,7 +86,7 @@ const Registration = () => {
                     />
                     {errors.email && <p style={styles.error}>{errors.email}</p>}
                 </div>
-                <div style={styles.formGroup}>
+                <div className="form-group">
                     <label>Password</label>
                     <input
                         type="password"
@@ -97,7 +97,7 @@ const Registration = () => {
                     />
                     {errors.password && <p style={styles.error}>{errors.password}</p>}
                 </div>
-                <div style={styles.formGroup}>
+                <div className="form-group">
                     <label>Confirm Password</label>
                     <input
                         type="password"
@@ -108,7 +108,7 @@ const Registration = () => {
                     />
                     {errors.confirmPassword && <p style={styles.error}>{errors.confirmPassword}</p>}
                 </div>
-                <div style={styles.formGroup}>
+                <div className="form-group">
                     <label>Phone Number</label>
                     <input
                         type="text"
@@ -119,38 +119,17 @@ const Registration = () => {
                     />
                     {errors.phoneNumber && <p style={styles.error}>{errors.phoneNumber}</p>}
                 </div>
-                <button type="submit" style={styles.button}>Register</button>
+                <button type="submit">Register</button>
             </form>
         </div>
     );
 };
 
 const styles = {
-    container: {
-        maxWidth: '400px',
-        margin: '0 auto',
-        padding: '20px',
-        textAlign: 'center',
-    },
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    formGroup: {
-        marginBottom: '15px',
-        textAlign: 'left'
-    },
     input: {
         width: '100%',
         padding: '8px',
         boxSizing: 'border-box',
-    },
-    button: {
-        padding: '10px',
-        backgroundColor: '#4CAF50',
-        color: 'white',
-        border: 'none',
-        cursor: 'pointer',
     },
     error: {
         color: 'red',
