@@ -1,13 +1,33 @@
 from django.shortcuts import render
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import User
-from .serializers import UserSerializer, CreateUserSerializer, LoginUserSerializer
+from .serializers import UserSerializer, CreateUserSerializer, LoginUserSerializer, GetUserSerializer
 
 class UserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class GetUser(APIView):
+    serializer_class = GetUserSerializer
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+            
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            email = serializer.data.get('email')
+            if not email:
+                return Response({"detail": "Email parameter is required."}, status=status.HTTP_400_BAD_REQUEST)
+            try:
+                user = User.objects.get(email=email)  # Fetch the user by email
+                serializer = UserSerializer(user)
+                return Response(serializer.data)
+            except User.DoesNotExist:
+                return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'Bad Request': 'Invalid Serializer...'}, status=status.HTTP_400_BAD_REQUEST)
 
 class CreateUserView(APIView):
     serializer_class = CreateUserSerializer
@@ -52,8 +72,9 @@ class Login(APIView):
             found_user = User.objects.filter(email=email)
             if(found_user):
                 is_valid = found_user[0].password == password
+                serializer = UserSerializer(found_user[0])
                 return Response(
-                    found_user[0].username if is_valid else "Invalid credentials",
+                    serializer.data if is_valid else "Invalid credentials",
                     status=status.HTTP_200_OK if is_valid else status.HTTP_401_UNAUTHORIZED
                 )
             else:
