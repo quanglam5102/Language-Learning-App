@@ -11,5 +11,6 @@ urlpatterns = [
     path('about', index),
     path('quiz', index),
     path('goals', index),
+    path('path', index),
     re_path(r'^.*$', index),
 ]

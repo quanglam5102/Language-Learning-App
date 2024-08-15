@@ -28,6 +28,7 @@ function Navbar() {
     { label: "Discussion", path: "discussion" },
     { label: "Daily Goals", path: "goals" },
     { label: "Quizzes", path: "quiz" },
+    { label: "Learning Path", path: "path" },
     { label: "About", path: "about" },
     { label: "Logout", path: "logout" }
   ]
@@ -37,6 +38,7 @@ function Navbar() {
     { label: "Discussion", path: "discussion" },
     { label: "Daily Goals", path: "goals" },
     { label: "Quizzes", path: "quiz" },
+    { label: "Learning Path", path: "path" },
     { label: "About", path: "about" },
     { label: "Register", path: "register" },
     { label: "Login", path: "login" }
