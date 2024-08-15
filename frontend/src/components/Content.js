@@ -20,7 +20,7 @@ const Content = () => {
 
     return (
         <div className="container">
-            <h1>Language</h1>
+            <h1>Language Lessons</h1>
             {Object.keys(showContents).map((content, index) => (
                 <div key={index} className="button-content-group">
                     <div className="centered">
