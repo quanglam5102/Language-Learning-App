@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import Content from "./Content";
 import Quiz from "./Quiz";
 import About from "./About";
+import LearningPath from "./LearningPath";
 import UserProfile from "./UserProfile"
 import Discussion from "./Discussion";
 import DailyGoals from "./DailyGoals";
@@ -51,6 +52,7 @@ export default class App extends Component {
             <Route path="/register" element={<Registration />} />
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/path" element={<LearningPath />} />
             <Route path="/content" element={<ProtectedRoute element={<Content />} />} />
             <Route path="/quiz" element={<ProtectedRoute element={<Quiz />} />} />
             <Route path="/discussion" element={<ProtectedRoute element={<Discussion />} />} />
