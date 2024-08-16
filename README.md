@@ -1,5 +1,5 @@
-Scripts to run
-npm install to install all package(optional)
-npm install react-scripts
-npm audit fix --force
+
+Scripts to run:
+--Inside the Language-Learning-App, issue the command `python manage.py runserver`.
+--Then navigate to the folder frontend, run the command `npm run dev` (make sure you have node_modules installed, otherwise you have to install it using `npm install`).
 
