@@ -17,8 +17,8 @@ const UserProfile = () => {
   const [password, setPassword] = useState("******");
   const [phone, setPhone] = useState("xxx xxx-xxxx");
   const [email, setEmail] = useState("default@example.com");
-  const [progress, setProgress] = useState("Default Name");
-  const [createdAt, setCreatedAt] = useState("Default Name");
+  const [progress, setProgress] = useState("0");
+  const [createdAt, setCreatedAt] = useState("Default Date");
   const [errors, setErrors] = useState({});
   useEffect(() => {
     if (isAuthenticated) {
