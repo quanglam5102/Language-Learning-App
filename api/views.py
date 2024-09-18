@@ -1,9 +1,16 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.conf import settings
+import requests
+from django.http import JsonResponse
+import json
+import openai
 from .models import User
 from .serializers import UserSerializer, CreateUserSerializer, LoginUserSerializer, GetUserSerializer, UpdateProgressSerializer
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 class UserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -97,3 +104,49 @@ class UpdateProgressView(APIView):
                 return Response({'Bad Request': 'Could not find user...'}, status=status.HTTP_400_BAD_REQUEST)
         
         return Response({'Bad Request': 'Invalid Serializer...'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class ChatGPTView(APIView):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        # Load pre-trained model and tokenizer
+        self.model_name = 'gpt2'
+        self.tokenizer = GPT2Tokenizer.from_pretrained(self.model_name)
+        self.model = GPT2LMHeadModel.from_pretrained(self.model_name)
+
+    def generate_learning_content(self, prompt):
+        # Tokenize the input without padding
+        inputs = self.tokenizer(prompt, return_tensors='pt', truncation=True)
+        
+        # Generate the response from the model
+        outputs = self.model.generate(
+            inputs['input_ids'],
+            max_length=150,  # Adjust length as needed
+            num_return_sequences=1,
+            temperature=0.7,  # Adjust temperature for variety
+            do_sample=True,   # Enable sampling to use temperature
+            pad_token_id=self.tokenizer.eos_token_id  # Set pad_token_id to eos_token_id
+        )
+        
+        # Decode the response
+        reply = self.tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
+
+        return reply
+
+    def post(self, request, format=None):
+        user_input = request.data.get("user_input")
+        if not user_input:
+            return Response({"error": "Missing 'user_input' in request body"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Generate the content using the combined function
+            reply = self.generate_learning_content(user_input)
+
+            # Return the generated content
+            return Response({"reply": reply}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            # Log the error and return an error response
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+       
