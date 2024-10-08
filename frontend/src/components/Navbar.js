@@ -62,8 +62,11 @@ function Navbar() {
       logout();
       navigate('/login');
     }
+    else if(typeof e == "object") {
+      return;
+    }
     else {
-      let path = e == "home" ? "/" : "/" + e.toLowerCase();
+      let path = e == "home" ? "/" : "/" + e;
       navigate(path);
     }
   };
@@ -73,9 +76,12 @@ function Navbar() {
     if (e == "/profile") {
       navigate(e);
     }
-    else {
+    else if(e == "/logout") {
       logout();
       navigate('/login');
+    }
+    else {
+      return;
     }
   };
 
@@ -142,7 +148,7 @@ function Navbar() {
             {pages.map((page) => (
               <MenuItem
                 key={page.label}
-                onClick={() => handleCloseNavMenu(page.label)}
+                onClick={() => handleCloseNavMenu(page.path)}
               >
                 <Typography textAlign="center">{page.label}</Typography>
               </MenuItem>
